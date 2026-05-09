@@ -6,57 +6,84 @@
 <title>心灵光谱 - 心理能量类型测试</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:#e8e4dc;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px;color:#1a1a1a;line-height:1.6}
+body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:#f0ede6;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px;color:#1a1a1a;line-height:1.6}
 .container{width:100%;max-width:600px}
-.card{background:#ffffff;border-radius:16px;padding:28px 20px;box-shadow:0 4px 20px rgba(0,0,0,0.1);border:1px solid #d5d0c8}
+.card{background:#fff;border-radius:16px;padding:28px 20px;box-shadow:0 6px 24px rgba(0,0,0,0.1);border:1px solid #d9d4cc}
 .progress-wrap{margin-bottom:24px}
-.progress-info{display:flex;justify-content:space-between;font-size:13px;color:#5c5c5c;font-weight:500;margin-bottom:8px}
-.progress-track{height:6px;background:#e0dcd4;border-radius:10px;overflow:hidden}
+.progress-info{display:flex;justify-content:space-between;font-size:13px;color:#666;font-weight:500;margin-bottom:8px}
+.progress-track{height:6px;background:#e0dbd3;border-radius:10px;overflow:hidden}
 .progress-fill{height:100%;background:#4a6fa5;border-radius:10px;transition:width .5s;width:5%}
 .question-area{display:block;min-height:260px}
 .q-badge{display:inline-block;font-size:11px;letter-spacing:2px;color:#4a6fa5;font-weight:700;background:#eaf1f8;padding:4px 14px;border-radius:20px;margin-bottom:14px}
-.q-text{font-size:1.2rem;font-weight:600;margin-bottom:20px;line-height:1.5;color:#111111}
+.q-text{font-size:1.2rem;font-weight:600;margin-bottom:20px;line-height:1.5;color:#111}
 .options{display:flex;flex-direction:column;gap:10px}
-.opt{width:100%;text-align:left;padding:14px 16px;border:2px solid #d0cbc2;border-radius:12px;background:#faf9f6;font-size:.95rem;cursor:pointer;transition:all .2s;font-family:inherit;color:#1a1a1a}
+.opt{width:100%;text-align:left;padding:14px 16px;border:2px solid#d5cfc7;border-radius:12px;background:#faf9f5;font-size:.95rem;cursor:pointer;transition:all .2s;font-family:inherit;color:#1a1a1a}
 .opt:active{transform:scale(.97);background:#f0ece6}
-.opt.selected{border-color:#4a6fa5;background:#e8f0f8;font-weight:600;color:#111111}
+.opt.selected{border-color:#4a6fa5;background:#e6eff8;font-weight:600;color:#111}
 .nav-row{display:flex;justify-content:space-between;margin-top:24px;gap:12px}
-.btn{padding:12px 22px;border-radius:30px;font-weight:600;font-size:.9rem;cursor:pointer;border:none;font-family:inherit}
-.btn-back{background:#ffffff;color:#5c5c5c;border:2px solid #c5c0b8}
-.btn-next,.btn-submit{background:#4a6fa5;color:#ffffff}
+.btn{padding:14px 24px;border-radius:30px;font-weight:600;font-size:.9rem;cursor:pointer;border:none;font-family:inherit}
+.btn-back{background:#fff;color:#666;border:2px solid#c5c0b8}
+.btn-next,.btn-submit{background:#4a6fa5;color:#fff}
 .btn:disabled{opacity:.3;pointer-events:none}
 .result-area{display:none;text-align:center}
 .type-code{font-size:2.5rem;font-weight:800;letter-spacing:4px;color:#4a6fa5;margin-bottom:4px}
-.type-name{font-size:1.7rem;font-weight:700;color:#111111;margin-bottom:4px}
-.type-tagline{font-size:.9rem;color:#5c5c5c;font-style:italic;margin-bottom:18px}
-.type-summary{text-align:left;background:#faf9f6;border-radius:14px;padding:16px;margin-bottom:16px;border:1px solid #e0dbd3;line-height:1.7;font-size:.9rem;color:#1a1a1a}
+.type-name{font-size:1.7rem;font-weight:700;color:#111;margin-bottom:4px}
+.type-tagline{font-size:.9rem;color:#666;font-style:italic;margin-bottom:18px}
+.type-summary{text-align:left;background:#faf9f5;border-radius:14px;padding:16px;margin-bottom:16px;border:1px solid#e0dbd3;line-height:1.7;font-size:.9rem;color:#1a1a1a}
 .spectrum-row{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:14px 0 8px}
 .spec-item{text-align:center}
 .spec-val{font-size:1.5rem;font-weight:700;color:#4a6fa5}
-.spec-lbl{font-size:.7rem;color:#5c5c5c}
-.btn-restart{background:#ffffff;color:#4a6fa5;border:2px solid #4a6fa5;padding:12px 28px;border-radius:30px;font-weight:600;cursor:pointer;font-family:inherit;font-size:.9rem;margin-top:8px}
+.spec-lbl{font-size:.7rem;color:#666}
+.btn-restart{background:#fff;color:#4a6fa5;border:2px solid#4a6fa5;padding:12px 28px;border-radius:30px;font-weight:600;cursor:pointer;font-family:inherit;font-size:.9rem;margin-top:8px}
 </style>
 </head>
 <body>
-<div class="container"><div class="card" id="mainCard">
-<div id="headerArea"><div class="progress-wrap"><div class="progress-info"><span id="progressLabel">第 1 / 20 题</span><span id="progressPercent">5%</span></div><div class="progress-track"><div class="progress-fill" id="progressFill" style="width:5%"></div></div></div></div>
-<div id="questionArea" class="question-area"></div>
-<div class="nav-row" id="navRow"><button class="btn btn-back" id="btnBack" disabled>← 上一题</button><button class="btn btn-next" id="btnNext" disabled>下一题 →</button><button class="btn btn-submit" id="btnSubmit" style="display:none">🔮 查看结果</button></div>
-<div id="resultArea" class="result-area"></div>
+<div class="container"><div class="card" id="mc">
+<div id="ha"><div class="progress-wrap"><div class="progress-info"><span id="pl">第 1 / 20 题</span><span id="pp">5%</span></div><div class="progress-track"><div class="progress-fill" id="pf" style="width:5%"></div></div></div></div>
+<div id="qa" class="question-area"></div>
+<div class="nav-row" id="nr"><button class="btn btn-back" id="bb" disabled>← 上一题</button><button class="btn btn-next" id="bn" disabled>下一题 →</button><button class="btn btn-submit" id="bs" style="display:none">查看结果</button></div>
+<div id="ra" class="result-area"></div>
 </div></div>
 <script>
 (function(){
-var qs=[{t:"面对压力时，我通常最先注意到的是：",o:["身体反应（心跳加速、疲劳等）","情绪变化（焦虑、烦躁等）","思维变化（反复担忧等）","行为改变（拖延、失眠等）"]},{t:"当与人发生冲突后，我倾向于：",o:["立刻想解决问题","先独处消化情绪","寻求第三方建议","暂时回避，等冷静后再谈"]},{t:"周末醒来没有安排时，我感到：",o:["充实，有很多想做的事","有点不安，想填满时间","平静，享受无所事事","疲惫，只想继续躺着"]},{t:"对于'未来'，我的感受更接近：",o:["充满期待与规划","有些模糊，但也好奇","感到压力与不确定","很少主动去想"]},{t:"我更容易被哪种方式充电：",o:["和朋友相处、社交","独处、阅读或创作","运动或户外活动","彻底放空、冥想或睡觉"]},{t:"做重要决定时，我主要依靠：",o:["理性分析与数据","直觉和内心感受","他人的经验与建议","反复权衡，但常犹豫不决"]},{t:"我对自己的情绪：",o:["能清晰识别并表达","能感受到，但不常表达","有时会混淆或压抑","经常感到被情绪吞没"]},{t:"当计划被打乱时，我：",o:["迅速调整，找到新方案","短暂沮丧，然后适应","感到明显烦躁","几乎无法接受"]},{t:"我对他人的需求：",o:["敏感，常主动提供帮助","能察觉，但不确定怎么做","有时过度承担","通常专注于自己的事"]},{t:"一天结束时，我更多感到：",o:["满足，有收获","平静，完成了该做的","疲惫，但还算可控","空虚或焦虑"]},{t:"遇到挫折时，我的内心声音：",o:["这只是暂时的，我能调整","我需要分析问题出在哪","我是不是不够好？","感觉一切都很沉重"]},{t:"对于'独处时间'，我：",o:["适度享受，但太久会孤单","非常需要，是恢复能量的方式","有时享受，有时不安","想独处但常被负面思绪困扰"]},{t:"我对他人的评价：",o:["在意，但能过滤","参考，但更相信自己","比较敏感，会反复想","极度在意，影响自我认知"]},{t:"当我感到低落时，有效的方法是：",o:["转移注意力做点事","找人倾诉","分析情绪来源并接纳","需要较长时间才能缓解"]},{t:"我对生活节奏的偏好是：",o:["喜欢规律与掌控感","灵活，随遇而安","在规律与自由间摇摆","常常感到被节奏推着走"]},{t:"想到'社交场合'，我：",o:["多数时期待","看心情，有时享受有时回避","轻度紧张但能应对","经常想回避"]},{t:"我对自己的了解程度：",o:["比较清晰，知道优缺点","在探索中，有模糊轮廓","有时清晰有时混乱","经常感到陌生"]},{t:"面对他人的负面情绪，我：",o:["能保持稳定并提供支持","倾听但容易受影响","想帮忙但不知所措","感到压力，想逃离"]},{t:"我对'变化'的态度：",o:["视为机会","接受，但需要适应期","谨慎，偏好可预测","抗拒，变化让我不安"]},{t:"整体而言，最近一个月我：",o:["状态良好，能享受生活","基本稳定，偶有波动","时常感到疲惫或紧张","多数时间感到困难或低落"]}];
-var tp={l1:{c:"S.E.A.C.",n:"晴空型",g:"Stable · Empowered · Attuned · Clear",d:"你的心理状态如开阔晴空，情绪稳定、自我认知清晰，具备良好的心理弹性和社会连接。",cl:"#3d7a5c"},l2:{c:"B.A.L.M.",n:"和风型",g:"Balanced · Adaptive · Light · Mindful",d:"你大多数时候处于平衡状态，偶有波动但能有效调节。你拥有不错的应对资源，像一阵温和持续的风。",cl:"#6b8f3a"},l3:{c:"T.I.D.E.",n:"潮汐型",g:"Tuned · Introspective · Drifting · Engaged",d:"你的情绪与能量像潮水有涨落，有时积极明朗，有时感到拉扯或疲惫。你需要更多自我照顾。",cl:"#c99c3a"},l4:{c:"F.O.G.G.",n:"雾霭型",g:"Fragile · Overwhelmed · Guarded · Grounding",d:"近期你可能承受较多心理负荷，感到疲惫、迷茫。这不是弱点，而是提醒你需要为自己留出修复空间。",cl:"#b8613c"},l5:{c:"S.T.O.R.M.",n:"雷雨型",g:"Sensitive · Tensed · Overloaded · Reaching",d:"你正经历一段艰难的内在风暴期。痛苦是真实的，但不代表你的全部。寻求支持是勇气，风暴会过去。",cl:"#8b3a5c"}};
+var qs=[
+{t:"面对压力时，我通常最先注意到的是：",o:["身体反应（心跳加速、疲劳等）","情绪变化（焦虑、烦躁等）","思维变化（反复担忧等）","行为改变（拖延、失眠等）"]},
+{t:"与人发生冲突后，我倾向于：",o:["立刻想解决问题","先独处消化情绪","寻求第三方建议","暂时回避，等冷静后再谈"]},
+{t:"周末醒来没有安排时，我感到：",o:["充实，有很多想做的事","有点不安，想填满时间","平静，享受无所事事","疲惫，只想继续躺着"]},
+{t:"对于未来，我的感受更接近：",o:["充满期待与规划","有些模糊，但也好奇","感到压力与不确定","很少主动去想"]},
+{t:"我更容易被哪种方式充电：",o:["和朋友相处、社交","独处、阅读或创作","运动或户外活动","彻底放空、冥想或睡觉"]},
+{t:"做重要决定时，我主要依靠：",o:["理性分析与数据","直觉和内心感受","他人的经验建议","反复权衡，常犹豫不决"]},
+{t:"我对自己的情绪：",o:["能清晰识别并表达","能感受到，但不常表达","有时会混淆或压抑","经常感到被情绪吞没"]},
+{t:"当计划被打乱时，我：",o:["迅速调整找到新方案","短暂沮丧然后适应","感到明显烦躁","几乎无法接受"]},
+{t:"我对他人的需求：",o:["敏感，常主动提供帮助","能察觉但不确定怎么做","有时过度承担","通常专注于自己的事"]},
+{t:"一天结束时，我更多感到：",o:["满足有收获","平静完成了该做的","疲惫但还算可控","空虚或焦虑"]},
+{t:"遇到挫折时，我的内心声音：",o:["这只是暂时的我能调整","需要分析问题出在哪","我是不是不够好","感觉一切都很沉重"]},
+{t:"对于独处时间，我：",o:["适度享受但太久会孤单","非常需要，是恢复能量的方式","有时享受有时不安","想独处但常被负面思绪困扰"]},
+{t:"我对他人的评价：",o:["在意但能过滤","参考但更相信自己","比较敏感会反复想","极度在意影响自我认知"]},
+{t:"当我感到低落时，有效方法是：",o:["转移注意力做点事","找人倾诉","分析情绪来源并接纳","需要较长时间才能缓解"]},
+{t:"我对生活节奏的偏好是：",o:["喜欢规律与掌控感","灵活随遇而安","在规律与自由间摇摆","常感到被节奏推着走"]},
+{t:"想到社交场合，我：",o:["多数时期待","看心情有时享受有时回避","轻度紧张但能应对","经常想回避"]},
+{t:"我对自己的了解程度：",o:["比较清晰知道优缺点","在探索中有模糊轮廓","有时清晰有时混乱","经常感到陌生"]},
+{t:"面对他人的负面情绪，我：",o:["能保持稳定并提供支持","倾听但容易受影响","想帮忙但不知所措","感到压力想逃离"]},
+{t:"我对变化的态度：",o:["视为机会","接受但需要适应期","谨慎偏好可预测","抗拒变化让我不安"]},
+{t:"整体而言最近一个月我：",o:["状态良好能享受生活","基本稳定偶有波动","时常感到疲惫或紧张","多数时间感到困难或低落"]}
+];
+var tp={
+l1:{c:"S.E.A.C.",n:"晴空型",g:"Stable · Empowered · Attuned · Clear",d:"你的心理状态如开阔晴空，情绪稳定、自我认知清晰，具备良好的心理弹性和社会连接。你像一名内在的航海家，既能感受风向，也能稳稳掌舵。",cl:"#3d7a5c"},
+l2:{c:"B.A.L.M.",n:"和风型",g:"Balanced · Adaptive · Light · Mindful",d:"你大多数时候处于平衡状态，偶有波动但能有效调节。你拥有不错的应对资源，像一阵温和持续的风——有方向，不急迫。",cl:"#6b8f3a"},
+l3:{c:"T.I.D.E.",n:"潮汐型",g:"Tuned · Introspective · Drifting · Engaged",d:"你的情绪与能量像潮水有涨落，有时积极明朗，有时感到拉扯或疲惫。你在自省中前行，内心世界丰富，需要更多自我照顾。",cl:"#c99c3a"},
+l4:{c:"F.O.G.G.",n:"雾霭型",g:"Fragile · Overwhelmed · Guarded · Grounding",d:"近期你可能承受较多心理负荷，感到疲惫、迷茫或与他人有些疏离。这不是弱点，而是信号——提醒你需要为自己留出修复空间。",cl:"#b8613c"},
+l5:{c:"S.T.O.R.M.",n:"雷雨型",g:"Sensitive · Tensed · Overloaded · Reaching",d:"你正经历一段艰难的内在风暴期。痛苦是真实的，但它不代表你的全部。寻求支持不是脆弱，而是勇气。风暴会过去，而你已经在面对它。",cl:"#8b3a5c"}
+};
 var t=qs.length,ci=0,an=new Array(t).fill(null);
-var qa=document.getElementById('questionArea'),bb=document.getElementById('btnBack'),bn=document.getElementById('btnNext'),bs=document.getElementById('btnSubmit'),nr=document.getElementById('navRow'),ra=document.getElementById('resultArea'),ha=document.getElementById('headerArea'),pl=document.getElementById('progressLabel'),pp=document.getElementById('progressPercent'),pf=document.getElementById('progressFill');
-function rq(i){var q=qs[i],h='<div class="q-badge">问题 '+(i+1)+'</div>';h+='<div class="q-text">'+q.t+'</div><div class="options">';for(var j=0;j<q.o.length;j++){h+='<button class="opt'+(an[i]===j?' selected':'')+'" data-o="'+j+'">'+q.o[j]+'</button>'}h+='</div>';qa.innerHTML=h;var bt=document.querySelectorAll('.opt');for(var k=0;k<bt.length;k++){bt[k].onclick=function(){var o=parseInt(this.getAttribute('data-o'));an[i]=o;var al=document.querySelectorAll('.opt');for(var a=0;a<al.length;a++)al[a].classList.remove('selected');this.classList.add('selected');unb()}}unb();up(i+1)}
-function unb(){bn.disabled=an[ci]===null;bb.disabled=ci===0;if(ci===t-1){bn.style.display='none';bs.style.display='inline-block';bs.disabled=an[ci]===null}else{bn.style.display='inline-block';bs.style.display='none'}}
-function up(n){var p=Math.round(n/t*100);pl.textContent='第 '+n+' / '+t+' 题';pp.textContent=p+'%';pf.style.width=p+'%'}
-function gq(i){if(i<0||i>=t)return;ci=i;rq(ci);window.scrollTo({top:0,behavior:'smooth'})}
-function sr(){var s=an.reduce(function(a,b){return a+b},0),lk;if(s<=12)lk='l1';else if(s<=24)lk='l2';else if(s<=36)lk='l3';else if(s<=48)lk='l4';else lk='l5';var p=tp[lk];var sa=Math.min(100,Math.max(20,100-((an[6]||0)+(an[11]||0)+(an[16]||0))*8));var re=Math.min(100,Math.max(20,100-((an[0]||0)+(an[7]||0)+(an[10]||0))*8));var sc=Math.min(100,Math.max(20,100-((an[1]||0)+(an[15]||0)+(an[17]||0))*8));qa.style.display='none';nr.style.display='none';ha.style.display='none';ra.style.display='block';ra.innerHTML='<div class="type-code" style="color:'+p.cl+'">'+p.c+'</div><div class="type-name">'+p.n+'</div><div class="type-tagline">'+p.g+'</div><div class="type-summary"><p>'+p.d+'</p></div><div class="spectrum-row"><div class="spec-item"><div class="spec-val">'+sa+'%</div><div class="spec-lbl">自我觉察</div></div><div class="spec-item"><div class="spec-val">'+re+'%</div><div class="spec-lbl">心理弹性</div></div><div class="spec-item"><div class="spec-val">'+sc+'%</div><div class="spec-lbl">社交舒适</div></div></div><button class="btn-restart" id="btnR">🔄 重新测试</button>';document.getElementById('btnR').onclick=function(){an=new Array(t).fill(null);ci=0;qa.style.display='block';nr.style.display='flex';ha.style.display='block';ra.style.display='none';bn.style.display='inline-block';bs.style.display='none';rq(0);window.scrollTo({top:0,behavior:'smooth'})}}
-bn.onclick=function(){if(ci<t-1)gq(ci+1)}
-bb.onclick=function(){if(ci>0)gq(ci-1)}
+var qa=document.getElementById('qa'),bb=document.getElementById('bb'),bn=document.getElementById('bn'),bs=document.getElementById('bs'),nr=document.getElementById('nr'),ra=document.getElementById('ra'),ha=document.getElementById('ha'),pl=document.getElementById('pl'),pp=document.getElementById('pp'),pf=document.getElementById('pf');
+function rq(i){var q=qs[i],h='<div class="q-badge">问题 '+(i+1)+'</div>';h+='<div class="q-text">'+q.t+'</div><div class="options">';for(var j=0;j<q.o.length;j++){h+='<button class="opt'+(an[i]===j?' selected':'')+'" data-o="'+j+'">'+q.o[j]+'</button>';}h+='</div>';qa.innerHTML=h;var bt=document.querySelectorAll('.opt');for(var k=0;k<bt.length;k++){bt[k].onclick=function(){var o=parseInt(this.getAttribute('data-o'));an[i]=o;var al=document.querySelectorAll('.opt');for(var a=0;a<al.length;a++)al[a].classList.remove('selected');this.classList.add('selected');unb();}}unb();up(i+1);}
+function unb(){bn.disabled=an[ci]===null;bb.disabled=ci===0;if(ci===t-1){bn.style.display='none';bs.style.display='inline-block';bs.disabled=an[ci]===null;}else{bn.style.display='inline-block';bs.style.display='none';}}
+function up(n){var p=Math.round(n/t*100);pl.textContent='第 '+n+' / '+t+' 题';pp.textContent=p+'%';pf.style.width=p+'%';}
+function gq(i){if(i<0||i>=t)return;ci=i;rq(ci);window.scrollTo({top:0,behavior:'smooth'});}
+function sr(){var s=an.reduce(function(a,b){return a+b;},0),lk;if(s<=12)lk='l1';else if(s<=24)lk='l2';else if(s<=36)lk='l3';else if(s<=48)lk='l4';else lk='l5';var p=tp[lk];var sa=Math.min(100,Math.max(20,100-((an[6]||0)+(an[11]||0)+(an[16]||0))*8));var re=Math.min(100,Math.max(20,100-((an[0]||0)+(an[7]||0)+(an[10]||0))*8));var sc=Math.min(100,Math.max(20,100-((an[1]||0)+(an[15]||0)+(an[17]||0))*8));qa.style.display='none';nr.style.display='none';ha.style.display='none';ra.style.display='block';ra.innerHTML='<div class="type-code" style="color:'+p.cl+'">'+p.c+'</div><div class="type-name">'+p.n+'</div><div class="type-tagline">'+p.g+'</div><div class="type-summary"><p>'+p.d+'</p></div><div class="spectrum-row"><div class="spec-item"><div class="spec-val">'+sa+'%</div><div class="spec-lbl">自我觉察</div></div><div class="spec-item"><div class="spec-val">'+re+'%</div><div class="spec-lbl">心理弹性</div></div><div class="spec-item"><div class="spec-val">'+sc+'%</div><div class="spec-lbl">社交舒适</div></div></div><button class="btn-restart" id="btnR">重新测试</button>';document.getElementById('btnR').onclick=function(){an=new Array(t).fill(null);ci=0;qa.style.display='block';nr.style.display='flex';ha.style.display='block';ra.style.display='none';bn.style.display='inline-block';bs.style.display='none';rq(0);window.scrollTo({top:0,behavior:'smooth'});};}
+bn.onclick=function(){if(ci<t-1)gq(ci+1);};
+bb.onclick=function(){if(ci>0)gq(ci-1);};
 bs.onclick=sr;
 rq(0);
 })();
