@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>心灵光谱 - 心理能量类型测试</title>
     <style>
         :root {
@@ -14,7 +14,7 @@
             --accent-soft: #eaf1f8;
             --border: #e2ddd6;
             --shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
-            --radius: 20px;
+            --radius: 16px;
             --transition: 0.3s ease;
         }
         * {
@@ -23,30 +23,29 @@
             box-sizing: border-box;
         }
         body {
-            font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
-            background: linear-gradient(160deg, #f7f5f2 0%, #eae6df 100%);
+            font-family: 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+            background: #f4f2ee;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 16px;
             color: var(--text);
             line-height: 1.6;
         }
         .container {
             width: 100%;
-            max-width: 620px;
+            max-width: 600px;
         }
         .card {
             background: var(--card);
             border-radius: var(--radius);
-            padding: 36px 32px;
+            padding: 28px 22px;
             box-shadow: var(--shadow);
             border: 1px solid var(--border);
-            transition: all var(--transition);
         }
         .progress-wrap {
-            margin-bottom: 28px;
+            margin-bottom: 24px;
         }
         .progress-info {
             display: flex;
@@ -55,7 +54,6 @@
             color: var(--sub);
             font-weight: 500;
             margin-bottom: 8px;
-            letter-spacing: 0.5px;
         }
         .progress-track {
             height: 6px;
@@ -72,12 +70,12 @@
         }
         .question-area {
             display: block;
+            min-height: 300px;
         }
         .q-badge {
             display: inline-block;
             font-size: 11px;
             letter-spacing: 2px;
-            text-transform: uppercase;
             color: var(--accent);
             font-weight: 700;
             background: var(--accent-soft);
@@ -86,10 +84,11 @@
             margin-bottom: 14px;
         }
         .q-text {
-            font-size: 1.4rem;
-            font-weight: 650;
-            margin-bottom: 28px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 22px;
             line-height: 1.5;
+            color: #1e1e1e;
         }
         .options {
             display: flex;
@@ -99,20 +98,18 @@
         .opt {
             width: 100%;
             text-align: left;
-            padding: 15px 20px;
-            border: 2px solid #ece8e0;
-            border-radius: 14px;
-            background: #fcfbf9;
-            font-size: 1rem;
+            padding: 14px 18px;
+            border: 2px solid #e8e3da;
+            border-radius: 12px;
+            background: #fcfbf8;
+            font-size: 0.95rem;
             cursor: pointer;
             transition: all 0.2s ease;
             font-family: inherit;
             color: var(--text);
         }
-        .opt:hover {
-            border-color: #c4c0b8;
-            background: #f8f6f2;
-            transform: translateX(3px);
+        .opt:active {
+            transform: scale(0.98);
         }
         .opt.selected {
             border-color: var(--accent);
@@ -123,43 +120,40 @@
         .nav-row {
             display: flex;
             justify-content: space-between;
-            margin-top: 32px;
-            gap: 14px;
+            margin-top: 28px;
+            gap: 12px;
         }
         .btn {
-            padding: 13px 28px;
-            border-radius: 40px;
+            padding: 12px 24px;
+            border-radius: 30px;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: all var(--transition);
             border: none;
             font-family: inherit;
-            letter-spacing: 0.3px;
         }
         .btn-back {
             background: transparent;
             color: var(--sub);
             border: 2px solid #d9d4cc;
         }
-        .btn-back:hover {
-            background: #f5f2ed;
-            color: #1e1e1e;
+        .btn-back:active {
+            background: #f0ede7;
         }
         .btn-next,
         .btn-submit {
             background: var(--accent);
             color: #fff;
-            box-shadow: 0 6px 16px rgba(74, 111, 165, 0.25);
+            box-shadow: 0 4px 14px rgba(74, 111, 165, 0.25);
         }
-        .btn-next:hover,
-        .btn-submit:hover {
+        .btn-next:active,
+        .btn-submit:active {
             background: #3a5787;
-            transform: translateY(-1px);
-            box-shadow: 0 8px 22px rgba(74, 111, 165, 0.35);
+            transform: scale(0.97);
         }
         .btn:disabled {
-            opacity: 0.4;
+            opacity: 0.35;
             cursor: not-allowed;
             pointer-events: none;
         }
@@ -168,84 +162,69 @@
             text-align: center;
         }
         .type-code {
-            font-size: 3.8rem;
+            font-size: 2.8rem;
             font-weight: 800;
-            letter-spacing: 5px;
+            letter-spacing: 4px;
             color: var(--accent);
             margin-bottom: 4px;
         }
         .type-name {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 4px;
         }
         .type-tagline {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--sub);
             font-style: italic;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         .type-summary {
             text-align: left;
             background: #faf9f6;
-            border-radius: 16px;
-            padding: 22px;
-            margin-bottom: 20px;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 16px;
             border: 1px solid #e9e4da;
-            line-height: 1.8;
+            line-height: 1.7;
+            font-size: 0.95rem;
         }
         .spectrum-row {
             display: flex;
             justify-content: center;
-            gap: 24px;
+            gap: 20px;
             flex-wrap: wrap;
-            margin: 18px 0 8px;
+            margin: 16px 0 8px;
         }
         .spec-item {
             text-align: center;
-            min-width: 60px;
+            min-width: 55px;
         }
         .spec-val {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--accent);
         }
         .spec-lbl {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--sub);
-            letter-spacing: 0.6px;
-            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .btn-restart {
             background: #fff;
             color: var(--accent);
             border: 2px solid var(--accent);
-            padding: 13px 32px;
-            border-radius: 40px;
+            padding: 12px 28px;
+            border-radius: 30px;
             font-weight: 600;
             cursor: pointer;
             transition: all var(--transition);
             font-family: inherit;
-            font-size: 0.95rem;
-            margin-top: 10px;
+            font-size: 0.9rem;
+            margin-top: 8px;
         }
-        .btn-restart:hover {
+        .btn-restart:active {
             background: var(--accent-soft);
-        }
-        @media (max-width: 480px) {
-            .card {
-                padding: 24px 18px;
-            }
-            .q-text {
-                font-size: 1.2rem;
-            }
-            .type-code {
-                font-size: 2.8rem;
-                letter-spacing: 3px;
-            }
-            .type-name {
-                font-size: 1.7rem;
-            }
         }
     </style>
 </head>
@@ -274,12 +253,11 @@
     </div>
     <script>
         (function() {
-            // --- 题目数据 ---
-            const questions = [
+            var questions = [
                 { text: "面对压力时，我通常最先注意到的是：", options: ["身体反应（如心跳加速、疲劳）", "情绪变化（如焦虑、烦躁）", "思维变化（如反复担忧）", "行为改变（如拖延、失眠）"] },
                 { text: "当与人发生冲突后，我倾向于：", options: ["立刻想解决问题", "先独处消化情绪", "寻求第三方建议", "暂时回避，等冷静后再谈"] },
                 { text: "周末醒来没有安排时，我感到：", options: ["充实，有很多想做的事", "有点不安，想填满时间", "平静，享受无所事事", "疲惫，只想继续躺着"] },
-                { text: "对于‘未来’，我的感受更接近：", options: ["充满期待与规划", "有些模糊，但也好奇", "感到压力与不确定", "很少主动去想"] },
+                { text: "对于'未来'，我的感受更接近：", options: ["充满期待与规划", "有些模糊，但也好奇", "感到压力与不确定", "很少主动去想"] },
                 { text: "我更容易被哪种方式充电：", options: ["和朋友相处、社交", "独处、阅读或创作", "运动或户外活动", "彻底放空、冥想或睡觉"] },
                 { text: "做重要决定时，我主要依靠：", options: ["理性分析与数据", "直觉和内心感受", "他人的经验与建议", "反复权衡，但常犹豫不决"] },
                 { text: "我对自己的情绪：", options: ["能清晰识别并表达", "能感受到，但不常表达", "有时会混淆或压抑", "经常感到被情绪吞没"] },
@@ -287,10 +265,18 @@
                 { text: "我对他人的需求：", options: ["敏感，常主动提供帮助", "能察觉，但不确定该怎么做", "有时过度承担", "通常专注于自己的事"] },
                 { text: "一天结束时，我更多感到：", options: ["满足，有收获", "平静，完成了该做的", "疲惫，但还算可控", "空虚或焦虑"] },
                 { text: "遇到挫折时，我的内心声音更接近：", options: ["这只是暂时的，我能调整", "我需要分析问题出在哪", "我是不是不够好？", "感觉一切都很沉重"] },
-                { text: "对于‘独处时间’，我：", options: ["适度享受，但太久会孤单", "非常需要，是恢复能量的方式", "有时享受，有时不安", "想独处但常被负面思绪困扰"] },
+                { text: "对于'独处时间'，我：", options: ["适度享受，但太久会孤单", "非常需要，是恢复能量的方式", "有时享受，有时不安", "想独处但常被负面思绪困扰"] },
                 { text: "我对他人的评价：", options: ["在意，但能过滤", "参考，但更相信自己", "比较敏感，会反复想", "极度在意，影响自我认知"] },
                 { text: "当我感到低落时，有效的方法是：", options: ["转移注意力做点事", "找人倾诉", "分析情绪来源并接纳", "需要较长时间才能缓解"] },
                 { text: "我对生活节奏的偏好是：", options: ["喜欢规律与掌控感", "灵活，随遇而安", "在规律与自由间摇摆", "常常感到被节奏推着走"] },
-                { text: "想到‘社交场合’，我：", options: ["多数时期待", "看心情，有时享受有时回避", "轻度紧张但能应对", "经常想回避"] },
+                { text: "想到'社交场合'，我：", options: ["多数时期待", "看心情，有时享受有时回避", "轻度紧张但能应对", "经常想回避"] },
                 { text: "我对自己的了解程度：", options: ["比较清晰，知道优缺点", "在探索中，有模糊轮廓", "有时清晰有时混乱", "经常感到陌生"] },
-                { text: "面对他人的负面情绪，我：", options: ["能保持稳定并提供支持", "倾听但容易受影响", "
+                { text: "面对他人的负面情绪，我：", options: ["能保持稳定并提供支持", "倾听但容易受影响", "想帮忙但不知所措", "感到压力，想逃离"] },
+                { text: "我对'变化'的态度：", options: ["视为机会", "接受，但需要适应期", "谨慎，偏好可预测", "抗拒，变化让我不安"] },
+                { text: "整体而言，最近一个月我：", options: ["状态良好，能享受生活", "基本稳定，偶有波动", "时常感到疲惫或紧张", "多数时间感到困难或低落"] }
+            ];
+
+            var typeProfiles = {
+                level1: { code: "S.E.A.C.", name: "晴空型", tagline: "Stable · Empowered · Attuned · Clear", desc: "你的心理状态如开阔晴空，情绪稳定、自我认知清晰，具备良好的心理弹性和社会连接。你像一名内在的航海家，既能感受风向，也能稳稳掌舵。", color: "#3d7a5c" },
+                level2: { code: "B.A.L.M.", name: "和风型", tagline: "Balanced · Adaptive · Light · Mindful", desc: "你大多数时候处于平衡状态，偶有波动但能有效调节。你拥有不错的应对资源，像一阵温和持续的风——有方向，不急迫。", color: "#6b8f3a" },
+        
