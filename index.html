@@ -1,282 +1,95 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>心灵光谱 - 心理能量类型测试</title>
-    <style>
-        :root {
-            --bg: #f4f2ee;
-            --card: #ffffff;
-            --text: #1e1e1e;
-            --sub: #6e6e6e;
-            --accent: #4a6fa5;
-            --accent-soft: #eaf1f8;
-            --border: #e2ddd6;
-            --shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
-            --radius: 16px;
-            --transition: 0.3s ease;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
-            background: #f4f2ee;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            color: var(--text);
-            line-height: 1.6;
-        }
-        .container {
-            width: 100%;
-            max-width: 600px;
-        }
-        .card {
-            background: var(--card);
-            border-radius: var(--radius);
-            padding: 28px 22px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-        }
-        .progress-wrap {
-            margin-bottom: 24px;
-        }
-        .progress-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            color: var(--sub);
-            font-weight: 500;
-            margin-bottom: 8px;
-        }
-        .progress-track {
-            height: 6px;
-            background: #e7e3db;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            background: var(--accent);
-            border-radius: 10px;
-            transition: width 0.5s ease;
-            width: 5%;
-        }
-        .question-area {
-            display: block;
-            min-height: 300px;
-        }
-        .q-badge {
-            display: inline-block;
-            font-size: 11px;
-            letter-spacing: 2px;
-            color: var(--accent);
-            font-weight: 700;
-            background: var(--accent-soft);
-            padding: 4px 14px;
-            border-radius: 20px;
-            margin-bottom: 14px;
-        }
-        .q-text {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 22px;
-            line-height: 1.5;
-            color: #1e1e1e;
-        }
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .opt {
-            width: 100%;
-            text-align: left;
-            padding: 14px 18px;
-            border: 2px solid #e8e3da;
-            border-radius: 12px;
-            background: #fcfbf8;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: inherit;
-            color: var(--text);
-        }
-        .opt:active {
-            transform: scale(0.98);
-        }
-        .opt.selected {
-            border-color: var(--accent);
-            background: #f1f6fc;
-            font-weight: 550;
-            box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.08);
-        }
-        .nav-row {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 28px;
-            gap: 12px;
-        }
-        .btn {
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all var(--transition);
-            border: none;
-            font-family: inherit;
-        }
-        .btn-back {
-            background: transparent;
-            color: var(--sub);
-            border: 2px solid #d9d4cc;
-        }
-        .btn-back:active {
-            background: #f0ede7;
-        }
-        .btn-next,
-        .btn-submit {
-            background: var(--accent);
-            color: #fff;
-            box-shadow: 0 4px 14px rgba(74, 111, 165, 0.25);
-        }
-        .btn-next:active,
-        .btn-submit:active {
-            background: #3a5787;
-            transform: scale(0.97);
-        }
-        .btn:disabled {
-            opacity: 0.35;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-        .result-area {
-            display: none;
-            text-align: center;
-        }
-        .type-code {
-            font-size: 2.8rem;
-            font-weight: 800;
-            letter-spacing: 4px;
-            color: var(--accent);
-            margin-bottom: 4px;
-        }
-        .type-name {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-        .type-tagline {
-            font-size: 0.9rem;
-            color: var(--sub);
-            font-style: italic;
-            margin-bottom: 20px;
-        }
-        .type-summary {
-            text-align: left;
-            background: #faf9f6;
-            border-radius: 14px;
-            padding: 18px;
-            margin-bottom: 16px;
-            border: 1px solid #e9e4da;
-            line-height: 1.7;
-            font-size: 0.95rem;
-        }
-        .spectrum-row {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin: 16px 0 8px;
-        }
-        .spec-item {
-            text-align: center;
-            min-width: 55px;
-        }
-        .spec-val {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--accent);
-        }
-        .spec-lbl {
-            font-size: 0.7rem;
-            color: var(--sub);
-            letter-spacing: 0.5px;
-        }
-        .btn-restart {
-            background: #fff;
-            color: var(--accent);
-            border: 2px solid var(--accent);
-            padding: 12px 28px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition);
-            font-family: inherit;
-            font-size: 0.9rem;
-            margin-top: 8px;
-        }
-        .btn-restart:active {
-            background: var(--accent-soft);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心灵光谱 - 心理能量类型测试</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:#f4f2ee;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px;color:#1e1e1e;line-height:1.6}
+.container{width:100%;max-width:600px}
+.card{background:#fff;border-radius:16px;padding:28px 20px;box-shadow:0 8px 30px rgba(0,0,0,0.05);border:1px solid #e2ddd6}
+.progress-wrap{margin-bottom:24px}
+.progress-info{display:flex;justify-content:space-between;font-size:13px;color:#6e6e6e;font-weight:500;margin-bottom:8px}
+.progress-track{height:6px;background:#e7e3db;border-radius:10px;overflow:hidden}
+.progress-fill{height:100%;background:#4a6fa5;border-radius:10px;transition:width .5s;width:5%}
+.question-area{display:block;min-height:280px}
+.q-badge{display:inline-block;font-size:11px;letter-spacing:2px;color:#4a6fa5;font-weight:700;background:#eaf1f8;padding:4px 14px;border-radius:20px;margin-bottom:14px}
+.q-text{font-size:1.2rem;font-weight:600;margin-bottom:20px;line-height:1.5}
+.options{display:flex;flex-direction:column;gap:10px}
+.opt{width:100%;text-align:left;padding:14px 16px;border:2px solid #e8e3da;border-radius:12px;background:#fcfbf8;font-size:.95rem;cursor:pointer;transition:all .2s;font-family:inherit;color:#1e1e1e}
+.opt:active{transform:scale(.97)}
+.opt.selected{border-color:#4a6fa5;background:#f1f6fc;font-weight:550}
+.nav-row{display:flex;justify-content:space-between;margin-top:24px;gap:12px}
+.btn{padding:12px 22px;border-radius:30px;font-weight:600;font-size:.9rem;cursor:pointer;border:none;font-family:inherit}
+.btn-back{background:transparent;color:#6e6e6e;border:2px solid #d9d4cc}
+.btn-next,.btn-submit{background:#4a6fa5;color:#fff}
+.btn:disabled{opacity:.35;pointer-events:none}
+.result-area{display:none;text-align:center}
+.type-code{font-size:2.5rem;font-weight:800;letter-spacing:4px;color:#4a6fa5;margin-bottom:4px}
+.type-name{font-size:1.7rem;font-weight:700;margin-bottom:4px}
+.type-tagline{font-size:.9rem;color:#6e6e6e;font-style:italic;margin-bottom:18px}
+.type-summary{text-align:left;background:#faf9f6;border-radius:14px;padding:16px;margin-bottom:16px;border:1px solid #e9e4da;line-height:1.7;font-size:.9rem}
+.spectrum-row{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:14px 0 8px}
+.spec-item{text-align:center}
+.spec-val{font-size:1.5rem;font-weight:700;color:#4a6fa5}
+.spec-lbl{font-size:.7rem;color:#6e6e6e}
+.btn-restart{background:#fff;color:#4a6fa5;border:2px solid #4a6fa5;padding:12px 28px;border-radius:30px;font-weight:600;cursor:pointer;font-family:inherit;font-size:.9rem;margin-top:8px}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="card" id="mainCard">
-            <div id="headerArea">
-                <div class="progress-wrap">
-                    <div class="progress-info">
-                        <span id="progressLabel">第 1 / 20 题</span>
-                        <span id="progressPercent">5%</span>
-                    </div>
-                    <div class="progress-track">
-                        <div class="progress-fill" id="progressFill" style="width:5%"></div>
-                    </div>
-                </div>
-            </div>
-            <div id="questionArea" class="question-area"></div>
-            <div class="nav-row" id="navRow">
-                <button class="btn btn-back" id="btnBack" disabled>← 上一题</button>
-                <button class="btn btn-next" id="btnNext" disabled>下一题 →</button>
-                <button class="btn btn-submit" id="btnSubmit" style="display:none;">🔮 生成我的类型</button>
-            </div>
-            <div id="resultArea" class="result-area"></div>
-        </div>
-    </div>
-    <script>
-        (function() {
-            var questions = [
-                { text: "面对压力时，我通常最先注意到的是：", options: ["身体反应（如心跳加速、疲劳）", "情绪变化（如焦虑、烦躁）", "思维变化（如反复担忧）", "行为改变（如拖延、失眠）"] },
-                { text: "当与人发生冲突后，我倾向于：", options: ["立刻想解决问题", "先独处消化情绪", "寻求第三方建议", "暂时回避，等冷静后再谈"] },
-                { text: "周末醒来没有安排时，我感到：", options: ["充实，有很多想做的事", "有点不安，想填满时间", "平静，享受无所事事", "疲惫，只想继续躺着"] },
-                { text: "对于'未来'，我的感受更接近：", options: ["充满期待与规划", "有些模糊，但也好奇", "感到压力与不确定", "很少主动去想"] },
-                { text: "我更容易被哪种方式充电：", options: ["和朋友相处、社交", "独处、阅读或创作", "运动或户外活动", "彻底放空、冥想或睡觉"] },
-                { text: "做重要决定时，我主要依靠：", options: ["理性分析与数据", "直觉和内心感受", "他人的经验与建议", "反复权衡，但常犹豫不决"] },
-                { text: "我对自己的情绪：", options: ["能清晰识别并表达", "能感受到，但不常表达", "有时会混淆或压抑", "经常感到被情绪吞没"] },
-                { text: "当计划被打乱时，我：", options: ["迅速调整，找到新方案", "短暂沮丧，然后适应", "感到明显烦躁", "几乎无法接受，需要时间恢复"] },
-                { text: "我对他人的需求：", options: ["敏感，常主动提供帮助", "能察觉，但不确定该怎么做", "有时过度承担", "通常专注于自己的事"] },
-                { text: "一天结束时，我更多感到：", options: ["满足，有收获", "平静，完成了该做的", "疲惫，但还算可控", "空虚或焦虑"] },
-                { text: "遇到挫折时，我的内心声音更接近：", options: ["这只是暂时的，我能调整", "我需要分析问题出在哪", "我是不是不够好？", "感觉一切都很沉重"] },
-                { text: "对于'独处时间'，我：", options: ["适度享受，但太久会孤单", "非常需要，是恢复能量的方式", "有时享受，有时不安", "想独处但常被负面思绪困扰"] },
-                { text: "我对他人的评价：", options: ["在意，但能过滤", "参考，但更相信自己", "比较敏感，会反复想", "极度在意，影响自我认知"] },
-                { text: "当我感到低落时，有效的方法是：", options: ["转移注意力做点事", "找人倾诉", "分析情绪来源并接纳", "需要较长时间才能缓解"] },
-                { text: "我对生活节奏的偏好是：", options: ["喜欢规律与掌控感", "灵活，随遇而安", "在规律与自由间摇摆", "常常感到被节奏推着走"] },
-                { text: "想到'社交场合'，我：", options: ["多数时期待", "看心情，有时享受有时回避", "轻度紧张但能应对", "经常想回避"] },
-                { text: "我对自己的了解程度：", options: ["比较清晰，知道优缺点", "在探索中，有模糊轮廓", "有时清晰有时混乱", "经常感到陌生"] },
-                { text: "面对他人的负面情绪，我：", options: ["能保持稳定并提供支持", "倾听但容易受影响", "想帮忙但不知所措", "感到压力，想逃离"] },
-                { text: "我对'变化'的态度：", options: ["视为机会", "接受，但需要适应期", "谨慎，偏好可预测", "抗拒，变化让我不安"] },
-                { text: "整体而言，最近一个月我：", options: ["状态良好，能享受生活", "基本稳定，偶有波动", "时常感到疲惫或紧张", "多数时间感到困难或低落"] }
-            ];
-
-            var typeProfiles = {
-                level1: { code: "S.E.A.C.", name: "晴空型", tagline: "Stable · Empowered · Attuned · Clear", desc: "你的心理状态如开阔晴空，情绪稳定、自我认知清晰，具备良好的心理弹性和社会连接。你像一名内在的航海家，既能感受风向，也能稳稳掌舵。", color: "#3d7a5c" },
-                level2: { code: "B.A.L.M.", name: "和风型", tagline: "Balanced · Adaptive · Light · Mindful", desc: "你大多数时候处于平衡状态，偶有波动但能有效调节。你拥有不错的应对资源，像一阵温和持续的风——有方向，不急迫。", color: "#6b8f3a" },
-        
+<div class="container">
+<div class="card" id="mainCard">
+<div id="headerArea">
+<div class="progress-wrap">
+<div class="progress-info"><span id="progressLabel">第 1 / 20 题</span><span id="progressPercent">5%</span></div>
+<div class="progress-track"><div class="progress-fill" id="progressFill" style="width:5%"></div></div>
+</div>
+</div>
+<div id="questionArea" class="question-area"></div>
+<div class="nav-row" id="navRow">
+<button class="btn btn-back" id="btnBack" disabled>← 上一题</button>
+<button class="btn btn-next" id="btnNext" disabled>下一题 →</button>
+<button class="btn btn-submit" id="btnSubmit" style="display:none">🔮 生成我的类型</button>
+</div>
+<div id="resultArea" class="result-area"></div>
+</div>
+</div>
+<script>
+(function(){
+var qs=[{text:"面对压力时，我通常最先注意到的是：",opts:["身体反应（如心跳加速、疲劳）","情绪变化（如焦虑、烦躁）","思维变化（如反复担忧）","行为改变（如拖延、失眠）"]},{text:"当与人发生冲突后，我倾向于：",opts:["立刻想解决问题","先独处消化情绪","寻求第三方建议","暂时回避，等冷静后再谈"]},{text:"周末醒来没有安排时，我感到：",opts:["充实，有很多想做的事","有点不安，想填满时间","平静，享受无所事事","疲惫，只想继续躺着"]},{text:"对于'未来'，我的感受更接近：",opts:["充满期待与规划","有些模糊，但也好奇","感到压力与不确定","很少主动去想"]},{text:"我更容易被哪种方式充电：",opts:["和朋友相处、社交","独处、阅读或创作","运动或户外活动","彻底放空、冥想或睡觉"]},{text:"做重要决定时，我主要依靠：",opts:["理性分析与数据","直觉和内心感受","他人的经验与建议","反复权衡，但常犹豫不决"]},{text:"我对自己的情绪：",opts:["能清晰识别并表达","能感受到，但不常表达","有时会混淆或压抑","经常感到被情绪吞没"]},{text:"当计划被打乱时，我：",opts:["迅速调整，找到新方案","短暂沮丧，然后适应","感到明显烦躁","几乎无法接受，需要时间恢复"]},{text:"我对他人的需求：",opts:["敏感，常主动提供帮助","能察觉，但不确定该怎么做","有时过度承担","通常专注于自己的事"]},{text:"一天结束时，我更多感到：",opts:["满足，有收获","平静，完成了该做的","疲惫，但还算可控","空虚或焦虑"]},{text:"遇到挫折时，我的内心声音更接近：",opts:["这只是暂时的，我能调整","我需要分析问题出在哪","我是不是不够好？","感觉一切都很沉重"]},{text:"对于'独处时间'，我：",opts:["适度享受，但太久会孤单","非常需要，是恢复能量的方式","有时享受，有时不安","想独处但常被负面思绪困扰"]},{text:"我对他人的评价：",opts:["在意，但能过滤","参考，但更相信自己","比较敏感，会反复想","极度在意，影响自我认知"]},{text:"当我感到低落时，有效的方法是：",opts:["转移注意力做点事","找人倾诉","分析情绪来源并接纳","需要较长时间才能缓解"]},{text:"我对生活节奏的偏好是：",opts:["喜欢规律与掌控感","灵活，随遇而安","在规律与自由间摇摆","常常感到被节奏推着走"]},{text:"想到'社交场合'，我：",opts:["多数时期待","看心情，有时享受有时回避","轻度紧张但能应对","经常想回避"]},{text:"我对自己的了解程度：",opts:["比较清晰，知道优缺点","在探索中，有模糊轮廓","有时清晰有时混乱","经常感到陌生"]},{text:"面对他人的负面情绪，我：",opts:["能保持稳定并提供支持","倾听但容易受影响","想帮忙但不知所措","感到压力，想逃离"]},{text:"我对'变化'的态度：",opts:["视为机会","接受，但需要适应期","谨慎，偏好可预测","抗拒，变化让我不安"]},{text:"整体而言，最近一个月我：",opts:["状态良好，能享受生活","基本稳定，偶有波动","时常感到疲惫或紧张","多数时间感到困难或低落"]}];
+var types={level1:{code:"S.E.A.C.",name:"晴空型",tagline:"Stable · Empowered · Attuned · Clear",desc:"你的心理状态如开阔晴空，情绪稳定、自我认知清晰，具备良好的心理弹性和社会连接。你像一名内在的航海家，既能感受风向，也能稳稳掌舵。",color:"#3d7a5c"},level2:{code:"B.A.L.M.",name:"和风型",tagline:"Balanced · Adaptive · Light · Mindful",desc:"你大多数时候处于平衡状态，偶有波动但能有效调节。你拥有不错的应对资源，像一阵温和持续的风——有方向，不急迫。",color:"#6b8f3a"},level3:{code:"T.I.D.E.",name:"潮汐型",tagline:"Tuned · Introspective · Drifting · Engaged",desc:"你的情绪与能量像潮水有涨落，有时积极明朗，有时感到拉扯或疲惫。你在自省中前行，内心世界丰富，但需要更多自我照顾。",color:"#c99c3a"},level4:{code:"F.O.G.G.",name:"雾霭型",tagline:"Fragile · Overwhelmed · Guarded · Grounding",desc:"近期你可能承受较多心理负荷，感到疲惫、迷茫或与他人有些疏离。这不是弱点，而是信号——提醒你需要为自己留出修复空间。",color:"#b8613c"},level5:{code:"S.T.O.R.M.",name:"雷雨型",tagline:"Sensitive · Tensed · Overloaded · Reaching · Mending",desc:"你正经历一段艰难的内在风暴期。痛苦是真实的，但它不代表你的全部。寻求支持不是脆弱，而是勇气。风暴会过去，而你已经在面对它。",color:"#8b3a5c"}};
+var total=qs.length,ci=0,ans=new Array(total).fill(null);
+var qa=document.getElementById('questionArea'),bb=document.getElementById('btnBack'),bn=document.getElementById('btnNext'),bs=document.getElementById('btnSubmit'),nr=document.getElementById('navRow'),ra=document.getElementById('resultArea'),ha=document.getElementById('headerArea'),pl=document.getElementById('progressLabel'),pp=document.getElementById('progressPercent'),pf=document.getElementById('progressFill');
+function rq(i){
+var q=qs[i],h='<div class="q-badge">问题 '+(i+1)+'</div>';
+h+='<div class="q-text">'+q.text+'</div><div class="options">';
+for(var j=0;j<q.opts.length;j++){h+='<button class="opt'+(ans[i]===j?' selected':'')+'" data-o="'+j+'">'+q.opts[j]+'</button>';}
+h+='</div>';qa.innerHTML=h;
+var btns=document.querySelectorAll('.opt');
+for(var k=0;k<btns.length;k++){btns[k].onclick=function(){var o=parseInt(this.getAttribute('data-o'));ans[i]=o;var all=document.querySelectorAll('.opt');for(var a=0;a<all.length;a++)all[a].classList.remove('selected');this.classList.add('selected');unb();}}
+unb();up(i+1);
+}
+function unb(){bn.disabled=ans[ci]===null;bb.disabled=ci===0;
+if(ci===total-1){bn.style.display='none';bs.style.display='inline-block';bs.disabled=ans[ci]===null}else{bn.style.display='inline-block';bs.style.display='none'}}
+function up(n){var p=Math.round(n/total*100);pl.textContent='第 '+n+' / '+total+' 题';pp.textContent=p+'%';pf.style.width=p+'%';}
+function gq(i){if(i<0||i>=total)return;ci=i;rq(ci);window.scrollTo({top:0,behavior:'smooth'})}
+function sr(){
+var s=ans.reduce(function(a,b){return a+b},0),lk;
+if(s<=12)lk='level1';else if(s<=24)lk='level2';else if(s<=36)lk='level3';else if(s<=48)lk='level4';else lk='level5';
+var p=types[lk];
+var sa=Math.min(100,Math.max(20,100-((ans[6]||0)+(ans[11]||0)+(ans[16]||0))*8));
+var re=Math.min(100,Math.max(20,100-((ans[0]||0)+(ans[7]||0)+(ans[10]||0))*8));
+var sc=Math.min(100,Math.max(20,100-((ans[1]||0)+(ans[15]||0)+(ans[17]||0))*8));
+qa.style.display='none';nr.style.display='none';ha.style.display='none';ra.style.display='block';
+ra.innerHTML='<div class="type-code" style="color:'+p.color+'">'+p.code+'</div><div class="type-name">'+p.name+'</div><div class="type-tagline">'+p.tagline+'</div><div class="type-summary"><p>'+p.desc+'</p></div><div class="spectrum-row"><div class="spec-item"><div class="spec-val">'+sa+'%</div><div class="spec-lbl">自我觉察</div></div><div class="spec-item"><div class="spec-val">'+re+'%</div><div class="spec-lbl">心理弹性</div></div><div class="spec-item"><div class="spec-val">'+sc+'%</div><div class="spec-lbl">社交舒适</div></div></div><button class="btn-restart" id="btnRestart">🔄 重新测试</button>';
+document.getElementById('btnRestart').onclick=function(){ans=new Array(total).fill(null);ci=0;qa.style.display='block';nr.style.display='flex';ha.style.display='block';ra.style.display='none';bn.style.display='inline-block';bs.style.display='none';rq(0);window.scrollTo({top:0,behavior:'smooth'})}
+}
+bn.onclick=function(){if(ci<total-1)gq(ci+1)}
+bb.onclick=function(){if(ci>0)gq(ci-1)}
+bs.onclick=sr;
+rq(0);
+})();
+</script>
+</body>
+</html>
